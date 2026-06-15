@@ -39,7 +39,7 @@ class Auth extends CI_Controller {
 
         $session_data = array(
             'id_user'       => $user->id_user,
-            'nama_lengkap'  => $user->nama_lengkap,
+            'nama'  => $user->nama,
             'email'         => $user->email,
             'login'         => TRUE
         );
@@ -87,7 +87,7 @@ class Auth extends CI_Controller {
         }
 
         $data_user = array(
-    'nama_lengkap' => $this->input->post('nama'),
+    'nama' => $this->input->post('nama'),
     'email'        => $email,
     'password'     => md5($password)
 );

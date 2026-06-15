@@ -54,68 +54,24 @@
             transition: all 0.3s ease;
         }
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(127, 94, 255, 0.4); }
-        input{
-    transition:all 0.3s ease;
-}
-
-input:hover{
-    transform:translateY(-2px);
-}
-
-input:focus{
-    outline:none;
-    border-color:#8b5cf6;
-    box-shadow:0 0 15px rgba(139,92,246,0.3);
-}
-
-.btn{
-    transition:all 0.3s ease;
-}
-
-.btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(147,51,234,0.3);
-}
-@keyframes fadeUp {
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-.brand-title,
-.logo{
-    animation:fadeUp .6s ease;
-}
-.brand-subtitle{
-    animation:fadeUp .8s ease;
-}
-.form-heading{
-    animation:fadeUp 1s ease;
-}
-form{
-    animation:fadeUp 1.2s ease;
-}
-.btn-login,
-.btn{
-    animation:fadeUp 1.4s ease;
-}
-.form-control:hover{
-    transform:translateY(-2px);
-}
-
-.form-control:focus{
-    outline:none;
-    border-color:#8b5cf6;
-    box-shadow:0 0 15px rgba(139,92,246,.3);
-}
-.btn-login:hover{
-    transform:translateY(-3px);
-    box-shadow:0 15px 35px rgba(124,77,255,.35);
-}
+        input{ transition:all 0.3s ease; }
+        input:hover{ transform:translateY(-2px); }
+        input:focus{ outline:none; border-color:#8b5cf6; box-shadow:0 0 15px rgba(139,92,246,0.3); }
+        .btn{ transition:all 0.3s ease; }
+        .btn:hover{ transform:translateY(-3px); box-shadow:0 10px 25px rgba(147,51,234,0.3); }
+        
+        @keyframes fadeUp {
+            from{ opacity:0; transform:translateY(40px); }
+            to{ opacity:1; transform:translateY(0); }
+        }
+        .brand-title, .logo{ animation:fadeUp .6s ease; }
+        .brand-subtitle{ animation:fadeUp .8s ease; }
+        .form-heading{ animation:fadeUp 1s ease; }
+        form{ animation:fadeUp 1.2s ease; }
+        .btn-login, .btn{ animation:fadeUp 1.4s ease; }
+        .form-control:hover{ transform:translateY(-2px); }
+        .form-control:focus{ outline:none; border-color:#8b5cf6; box-shadow:0 0 15px rgba(139,92,246,.3); }
+        .btn-login:hover{ transform:translateY(-3px); box-shadow:0 15px 35px rgba(124,77,255,.35); }
     </style>
 </head>
 
@@ -129,8 +85,8 @@ form{
                 
                 <form action="<?php echo base_url('auth/login_process'); ?>" method="POST">
                     <div class="mb-4">
-                        <label class="form-label fw-bold">Username</label>
-                        <input type="email" name="email" class="form-control" placeholder="Masukkan Username" required>
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Masukkan Email Anda" required>
                     </div>
                     <div class="mb-4">
                         <div class="d-flex justify-content-between">
