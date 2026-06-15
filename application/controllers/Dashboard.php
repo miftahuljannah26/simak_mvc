@@ -61,8 +61,56 @@ class Dashboard extends CI_Controller {
         $data['sisa_saldo']          = $sisa_saldo;
         $data['persentase_progress'] = $persentase_progress;
         $data['agenda_tertunda']     = $agenda_tertunda;
-        $data['aktivitas_terbaru']   = $data_aktivitas; // Nanti di-looping di widget kanan bawah
+        $data['aktivitas_terbaru']   = $data_aktivitas;
 
         $this->load->view('dashboard/dashboard', $data);
+    }
+
+    // FIX NAMA FILE VIEW: Mengarah ke profile_settings.php
+    public function profile() {
+        $this->load->view('dashboard/profile_settings'); 
+    }
+
+    public function update() {
+        $id = $this->session->userdata('id_user');
+        
+        $data = [
+            'nama'  => $this->input->post('nama'),
+            'email' => $this->input->post('email')
+        ];
+
+        if($this->input->post('password')) {
+            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        }
+
+        // PROSES UPLOAD FOTO PROFIL
+        if (!empty($_FILES['foto_profil']['name'])) {
+            $config['upload_path']   = './assets/uploads/profile/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['file_name']     = 'profile_' . $id . '_' . time();
+            $config['overwrite']     = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto_profil')) {
+                $upload_data = $this->upload->data();
+                $file_name   = $upload_data['file_name'];
+                
+                $data['foto_profil'] = $file_name;
+                $this->session->set_userdata('foto_profil', $file_name);
+            } else {
+                $this->session->set_flashdata('error_upload', $this->upload->display_errors());
+            }
+        }
+
+        $this->db->update('user', $data, ['id_user' => $id]);
+
+        $this->session->set_userdata('nama', $data['nama']);
+        $this->session->set_userdata('email', $data['email']);
+
+        $this->session->set_flashdata('pesan', 'Profil Berhasil Diupdate');
+
+        // REDIRECT FIX: diarahkan kembali ke method profile secara aman lewat site_url
+        redirect(site_url('dashboard/profile'));
     }
 }

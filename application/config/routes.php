@@ -13,6 +13,11 @@ $route['auth/proses_reset'] = 'auth/proses_reset';
 // 3. Rute Sektor Dashboard Utama
 $route['dashboard'] = 'dashboard';
 
+// ========== TAMBAHKAN 2 BARIS BARU INI (KUNCI PASAL 404) ==========
+$route['dashboard/profile'] = 'dashboard/profile';
+$route['dashboard/update']  = 'dashboard/update';
+// ==================================================================
+
 // 4. Rute Sektor Manajemen Aktivitas (Mengarah ke Controller Aktivitas yang Benar)
 $route['aktivitas'] = 'Aktivitas'; 
 $route['aktivitas/simpan'] = 'Aktivitas/simpan';
