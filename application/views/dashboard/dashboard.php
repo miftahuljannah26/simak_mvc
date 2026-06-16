@@ -11,21 +11,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* Base Styles */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%) !important;
             overflow-x: hidden;
             min-height: 100vh;
+            transition: background 0.3s ease;
         }
-        /* Sidebar Kiri - Tema Gelap Gulita */
+        
+        /* DEFAULT TAMPILAN: DARK MODE PREMIUM */
+        body, body.dark-theme {
+            background: linear-gradient(135deg, #1f1a3a 0%, #0d0b18 100%);
+        }
         .sidebar {
             width: 260px;
             height: 100vh;
             position: fixed;
-            background: #110e1b !important;
+            background: #110e1b;
             padding: 30px 20px;
             border-right: 1px solid #1f1a30;
             z-index: 10;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
         .sidebar .brand {
             font-weight: 800;
@@ -54,35 +60,35 @@
             color: #ff3f86 !important;
             font-weight: 700;
         }
-
-        /* Container Utama */
         .main-content {
             margin-left: 260px;
             padding: 40px;
-            background: linear-gradient(135deg, #fbaec8 0%, #c1bdf7 50%, #b8cbfc 100%) !important;
+            background: linear-gradient(135deg, #1a162b 0%, #110e18 100%);
             min-height: 100vh;
+            transition: background 0.3s ease;
         }
         .welcome-title {
             font-weight: 800;
-            color: #ffffff !important;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: #1d091c;
+            text-shadow: 0 2px 4px rgba(154, 16, 16, 0.2);
+            transition: color 0.3s ease;
         }
         .welcome-subtitle {
-            color: #4a3f6d !important;
+            color: #36104f;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
-        
-        /* Box Gelap Premium (Dipaksa !important agar tidak ditimpa bootstrap) */
         .stat-card {
-            background: #191528 !important;
-            border-radius: 20px !important;
+            background: #191528;
+            border-radius: 20px;
             padding: 22px 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #241f3a !important;
+            border: 1px solid #241f3a;
+            color: #ffffff;
         }
         .stat-card:hover {
             transform: translateY(-5px);
@@ -91,16 +97,17 @@
             font-size: 11px;
             text-transform: uppercase;
             font-weight: 700;
-            color: #928aa9 !important;
+            color: #928aa9;
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
         .stat-card .card-value {
             font-size: 24px;
             font-weight: 800;
-            color: #ffffff !important;
+            color: #ffffff;
             margin-top: 3px;
+            transition: color 0.3s ease;
         }
-        
         .stat-icon-box {
             width: 48px;
             height: 48px;
@@ -109,7 +116,8 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            background: #201b33 !important;
+            background: #201b33;
+            transition: background 0.3s ease;
         }
         .icon-purple { color: #8b5cf6; }
         .icon-danger { color: #ec4899; }
@@ -117,26 +125,34 @@
         .icon-primary { color: #3b82f6; }
 
         .dashboard-box {
-            background: #191528 !important;
-            border-radius: 24px !important;
+            background: #191528;
+            border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             height: 100%;
-            border: 1px solid #241f3a !important;
+            border: 1px solid #241f3a;
+            color: #ffffff;
+            transition: all 0.3s ease;
         }
         .dashboard-box h5 {
-            color: #ffffff !important;
+            color: #ffffff;
+            transition: color 0.3s ease;
         }
-
-        /* Foto Profil */
         .profile-btn {
-            background: rgba(25, 21, 40, 0.85) !important;
+            background: rgba(25, 21, 40, 0.85);
             padding: 6px 16px 6px 8px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             text-decoration: none !important;
-            border: 1px solid #241f3a !important;
+            border: 1px solid #241f3a;
+            transition: all 0.3s ease;
+        }
+        .profile-name {
+            color: #ffffff;
+            font-size: 13px;
+            line-height: 1.1;
+            transition: color 0.3s ease;
         }
         .profile-img {
             width: 38px;
@@ -145,72 +161,150 @@
             object-fit: cover;
             border: 2px solid #7f5eff;
         }
-
-        /* Kalender */
         .mini-calendar {
-            background: #191528 !important;
-            color: #fff !important;
-            border-radius: 24px !important;
+            background: #191528;
+            color: #fff;
+            border-radius: 24px;
             padding: 25px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-            border: 1px solid #241f3a !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border: 1px solid #241f3a;
+            transition: all 0.3s ease;
         }
         .calendar-header {
             font-weight: 800;
-            color: #ffffff !important;
+            color: #ffffff;
             text-align: center;
             margin-bottom: 20px;
+            transition: color 0.3s ease;
         }
         .calendar-days div {
-            color: #fe5196 !important;
+            color: #fe5196;
             font-weight: 700;
         }
         .calendar-grid div {
-            color: #baafda !important;
+            color: #baafda;
+            transition: color 0.3s ease;
         }
         .calendar-grid .current-day {
-            background: linear-gradient(135deg, #ff3f86, #7f5eff) !important;
-            color: #fff !important;
+            background: linear-gradient(135deg, #ff3f86, #7f5eff);
+            color: #fff;
             border-radius: 50%;
             font-weight: 800;
         }
-
-        /* List Aktivitas Terbaru */
         .scrollable-activities {
             max-height: 380px;
             overflow-y: auto;
         }
         .activity-item {
-            background: #201b33 !important;
+            background: #201b33;
             padding: 16px;
             border-radius: 16px;
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #2b2546 !important;
+            border: 1px solid #2b2546;
+            transition: all 0.3s ease;
         }
-        
-        /* Badges / Status */
+        .activity-title {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
         .badge-done { 
-            background-color: #10b981 !important; 
-            color: #ffffff !important; 
+            background-color: #10b981; 
+            color: #ffffff; 
             font-weight: 700; 
         }
         .badge-inprogress { 
-            background-color: #2563eb !important; 
-            color: #ffffff !important; 
+            background-color: #2563eb; 
+            color: #ffffff; 
             font-weight: 700; 
         }
         .badge-incoming { 
-            background-color: rgba(255, 63, 134, 0.2) !important; 
-            color: #ff5596 !important; 
+            background-color: rgba(255, 63, 134, 0.2); 
+            color: #ff5596; 
             font-weight: 700; 
-            border: 1px solid rgba(255, 63, 134, 0.4) !important; 
+            border: 1px solid rgba(255, 63, 134, 0.4); 
         }
+
+        /* ========================================================
+           KONDISI SAKLAR KETIKA USER MENGUBAH KE LIGHT MODE
+           ======================================================== */
+        body.light-theme {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        }
+        .light-theme .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+        }
+        .light-theme .main-content {
+            background: linear-gradient(135deg, #fbaec8 0%, #c1bdf7 50%, #b8cbfc 100%);
+        }
+        .light-theme .welcome-title {
+            color: #ffffff; 
+        }
+        .light-theme .welcome-subtitle {
+            color: #4a3f6d;
+        }
+        .light-theme .stat-card, 
+        .light-theme .dashboard-box, 
+        .light-theme .mini-calendar {
+            background: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #333333;
+            box-shadow: 0 8px 24px rgba(127, 94, 255, 0.08);
+        }
+        .light-theme .stat-card .card-label {
+            color: #4a3f6d;
+        }
+        .light-theme .stat-card .card-value {
+            color: #1e1b4b;
+        }
+        .light-theme .stat-icon-box {
+            background: #f1f5f9;
+        }
+        .light-theme .dashboard-box h5,
+        .light-theme .calendar-header {
+            color: #1e1b4b;
+        }
+        .light-theme .calendar-grid div {
+            color: #4a3f6d;
+        }
+        .light-theme .activity-item {
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+        }
+        .light-theme .activity-title {
+            color: #1e1b4b;
+        }
+        .light-theme .profile-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #e2e8f0;
+        }
+        .light-theme .profile-name {
+            color: #1e1b4b;
+        }
+        [data-theme="dark"] .table{
+    color:#f3efff;
+}
+
+[data-theme="dark"] .text-muted{
+    color:#a29bbd !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select{
+    background:#221e38;
+    color:#f3efff;
+    border-color:#2b2640;
+}
+
+[data-theme="dark"] canvas{
+    filter: brightness(0.95);
+}
     </style>
 </head>
-<body>
+<body id="pageBody"></body>
 
     <div class="sidebar">
         <div class="brand">SIMAK</div>
@@ -236,7 +330,7 @@
                 <a href="<?php echo base_url('dashboard/profile'); ?>" class="profile-btn">
                     <img src="<?php echo !empty($this->session->userdata('foto_profil')) ? base_url('assets/uploads/profile/'.$this->session->userdata('foto_profil')) : 'https://i.pinimg.com/736x/c0/27/74/c027749d9af29af3d687847bc1fbb1fa.jpg'; ?>" class="profile-img me-2" alt="Profile">
                     <div class="text-start me-1">
-                        <div class="fw-bold text-white" style="font-size: 13px; line-height: 1.1;"><?php echo $this->session->userdata('nama'); ?></div>
+                        <div class="fw-bold profile-name"><?php echo $this->session->userdata('nama'); ?></div>
                         <small class="text-muted" style="font-size: 10px;">Kelola Profil</small>
                     </div>
                 </a>
@@ -325,7 +419,7 @@
                                 <?php foreach($aktivitas_terbaru as $row): ?>
                                     <div class="activity-item">
                                         <div>
-                                            <div class="fw-bold text-white" style="font-size: 14px;"><?php echo $row->nama_aktivitas; ?></div>
+                                            <div class="fw-bold activity-title" style="font-size: 14px;"><?php echo $row->nama_aktivitas; ?></div>
                                             <small style="color: #797195; font-size: 11px;">
                                                 <i class="fa-regular fa-calendar me-1"></i>
                                                 <?php echo date('d M Y', strtotime($row->tanggal_aktivitas)); ?>
@@ -356,29 +450,82 @@
 
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script>
-        const ctx = document.getElementById('financialChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Total Pemasukan', 'Total Pengeluaran'],
-                datasets: [{
-                    data: [300000, 0],
-                    backgroundColor: ['rgba(59, 130, 246, 0.95)', 'rgba(236, 72, 153, 0.95)'],
-                    borderRadius: 12,
-                    barThickness: 50
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#797195' } },
-                    x: { grid: { display: false }, ticks: { color: '#797195' } }
-                }
+        document.addEventListener("DOMContentLoaded", function() {
+            // A. Atur Tema Gelap / Terang
+            const currentTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            const bodyEl = document.getElementById("pageBody") || document.body;
+            if (bodyEl) {
+                bodyEl.classList.remove("light-theme", "dark-theme");
+                bodyEl.classList.add(currentTheme === "dark" ? "dark-theme" : "light-theme");
+            }
+
+            // B. AMBIL CANVAS GRAFIK
+            const ctx = document.querySelector('canvas') || document.getElementById('chartAnalisisKeuangan');
+            
+            if (ctx) {
+                // Ambil data nominal dari PHP CodeIgniter kamu (menyesuaikan variabel controller)
+                const totalMasuk = <?= isset($total_pemasukan) ? $total_pemasukan : 5000000; ?>;
+                const totalKeluar = <?= isset($total_pengeluaran) ? $total_pengeluaran : 1000000; ?>;
+
+                // C. BUAT ULANG GRAFIKNYA SECARA PAKSA (RE-INITIALIZE)
+                // Ini akan langsung menggambar grafik batang finansial secara instan
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Total Pemasukan', 'Total Pengeluaran'],
+                        datasets: [{
+                            label: 'Analisis Keuangan (Rp)',
+                            data: [totalMasuk, totalKeluar],
+                            backgroundColor: [
+                                'rgba(95, 149, 247, 0.7)', // Biru untuk pemasukan
+                                'rgba(224, 109, 148, 0.7)'  // Pink untuk pengeluaran
+                            ],
+                            borderColor: [
+                                '#5f95f7',
+                                '#e06d94'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: currentTheme === 'dark' ? '#f1f5f9' : '#1e1333'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: currentTheme === 'dark' ? '#94a3b8' : '#64748b'
+                                },
+                                grid: {
+                                    color: currentTheme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: currentTheme === 'dark' ? '#94a3b8' : '#64748b'
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log("Mesin grafik berhasil dipaksa merender ulang!");
             }
         });
     </script>

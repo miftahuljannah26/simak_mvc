@@ -19,6 +19,14 @@
             --input-border: #e1e1e9;
             --table-td: #2a2a4a;
         }
+        [data-theme="dark"]{
+    --bg-body: linear-gradient(135deg, #140d26 0%, #0f172a 100%);
+    --bg-sidebar: #151221;
+    --bg-box: #1b182b;
+    --text-main: #f3efff;
+    --text-muted: #a29bbd;
+    --border-color: #2b2640;
+}
 
         /* PERBAIKAN: Mode Dark disamakan dengan Gradasi Ungu Transparan Mewah Dashboard */
         [data-theme="dark"] {
@@ -158,6 +166,24 @@
         /* THEME FLOATING SWITCH MODE */
         .theme-switch-btn { position: fixed; bottom: 25px; right: 25px; z-index: 99999; background: #b642f5; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(182,66,245,0.4); transition: transform 0.2s ease; }
         .theme-switch-btn:hover { transform: rotate(15deg); }
+        [data-theme="dark"] .table{
+    color:#f3efff;
+}
+
+[data-theme="dark"] .text-muted{
+    color:#a29bbd !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select{
+    background:#221e38;
+    color:#f3efff;
+    border-color:#2b2640;
+}
+
+[data-theme="dark"] canvas{
+    filter: brightness(0.95);
+}
     </style>
 </head>
 <body>
@@ -349,19 +375,6 @@
             // SCRIPT POPUP KATEGORI
             $('#selectKategori').on('change', function() { if ($(this).val() === 'TAMBAH_BARU') { $('#modalOverlay').fadeIn(200); $('#katModal').fadeIn(300); $(this).val(''); } });
             $('#btnBatalKat, #modalOverlay').on('click', function() { $('#modalOverlay').fadeOut(300); $('#katModal').fadeOut(200); });
-
-            // SCRIPT ENGINE DARK MODE STORAGE
-            const toggleBtn = document.getElementById('themeToggle');
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            toggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-
-            toggleBtn.addEventListener('click', () => {
-                let theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                toggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-            });
         });
     </script>
 </body>

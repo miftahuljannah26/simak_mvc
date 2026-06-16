@@ -187,7 +187,7 @@
                 </div>
 
                 <form action="<?= base_url('dashboard/update'); ?>" method="POST" enctype="multipart/form-data">
-                    
+                    <input type="hidden" name="theme" id="themeInput">
                     <div class="d-flex align-items-center gap-4 mb-4 p-3 rounded-3" style="background-color: var(--form-bg); border: 1px solid var(--border-color);">
                         <img src="<?= !empty($this->session->userdata('foto_profil')) ? base_url('assets/uploads/profile/'.$this->session->userdata('foto_profil')) : 'https://i.pinimg.com/736x/c0/27/74/c027749d9af29af3d687847bc1fbb1fa.jpg'; ?>" class="profile-avatar-current" alt="Foto Profil">
                         <div>
@@ -223,33 +223,71 @@
                 </form> </div>
         </main>
     </div>
+   <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const switchBtn = document.getElementById('themeToggleBtn') || document.getElementById('themeToggle');
+    const themeInput = document.getElementById('themeInput');
 
-    <script>
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const themeStatusText = document.querySelector('.text-theme-status');
-        
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggleBtn.checked = true;
-            themeStatusText.innerText = "Mode Gelap Aktif";
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeToggleBtn.checked = false;
-            themeStatusText.innerText = "Mode Terang Aktif";
+    if (!switchBtn) return;
+
+    // 1. Ambil tema awal dari Session PHP bawaanmu
+    let currentTheme = '<?= $this->session->userdata("theme") ?: "light"; ?>';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    if (document.body) {
+        document.body.className = currentTheme + '-theme';
+    }
+
+    // Atur visual saklar / checkbox
+    if (switchBtn.type === 'checkbox') {
+        switchBtn.checked = currentTheme === 'dark';
+    }
+
+    if (themeInput) {
+        themeInput.value = currentTheme;
+    }
+
+    // 2. Fungsi pemicu saat saklar diganti atau tombol diklik
+    const handleThemeChange = function(targetTheme) {
+        document.documentElement.setAttribute('data-theme', targetTheme);
+        if (document.body) {
+            document.body.className = targetTheme + '-theme';
+        }
+        if (themeInput) {
+            themeInput.value = targetTheme;
         }
 
-        themeToggleBtn.addEventListener('change', function() {
-            if (this.checked) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                themeStatusText.innerText = "Mode Gelap Aktif";
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                themeStatusText.innerText = "Mode Terang Aktif";
-            }
+        // Tembak AJAX ke controller profil agar Session PHP-nya ikut berubah permanen di server!
+        // Sesuaikan URL ini dengan nama controller simpan profil/pengaturanmu
+        fetch('<?= base_url("profile_settings/update_theme"); ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'theme=' + targetTheme
+        })
+        .then(res => res.text())
+        .then(data => {
+            console.log("Session tema berhasil diperbarui di server:", targetTheme);
+        })
+        .catch(err => console.error("Gagal update session:", err));
+    };
+
+    // Pasang listener sesuai jenis tombolnya (Switch/Checkbox atau Icon biasa)
+    if (switchBtn.type === 'checkbox') {
+        switchBtn.addEventListener('change', function() {
+            let targetTheme = this.checked ? 'dark' : 'light';
+            handleThemeChange(targetTheme);
         });
-    </script>
+    } else {
+        switchBtn.addEventListener('click', function() {
+            let current = document.documentElement.getAttribute('data-theme');
+            let targetTheme = current === 'dark' ? 'light' : 'dark';
+            handleThemeChange(targetTheme);
+        });
+    }
+
+});
+</script>
 </body>
 </html>
