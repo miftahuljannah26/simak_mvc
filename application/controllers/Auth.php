@@ -30,33 +30,31 @@ class Auth extends CI_Controller {
         return;
     }
 
-    $user = $this->M_user->cek_login(
-        $email,
-        md5($password)
-    );
+    // KITA PAKAI ENKRIPSI MD5 LAGI AGAR SINKRON DENGAN REGISTER ASLI KAMU
+    $user = $this->db->get_where('user', [
+        'email'    => $email,
+        'password' => md5($password)
+    ])->row();
 
     if ($user) {
-
+        // FIX SESSION: Masukkan foto_profil agar tidak hilang saat login ulang
         $session_data = array(
-            'id_user'       => $user->id_user,
-            'nama'  => $user->nama,
-            'email'         => $user->email,
-            'login'         => TRUE
+            'id_user'     => $user->id_user,
+            'nama'        => $user->nama,
+            'email'       => $user->email,
+            'foto_profil' => $user->foto_profil, // Kunci agar foto profil muncul terus
+            'login'       => TRUE
         );
 
         $this->session->set_userdata($session_data);
-
         redirect('dashboard');
-
     } else {
-
         echo "<script>
                 alert('Email atau Password salah!');
                 window.location.href='".base_url('auth')."';
               </script>";
     }
 }
-
     public function registrasi() {
         $this->load->view('auth/registrasi');
     }

@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller {
         $id_user = $this->session->userdata('id_user');
 
         // ==========================================
-        // 1. HITUNG HITUNGAN KEUANGAN & GRAFIK
+        // 1. HITUNG HITUNGAN KEUANGAN & GRAFIK (BAWAAN UTUH)
         // ==========================================
         $data_keuangan = $this->M_keuangan->get_keuangan_by_user($id_user);
         $total_pemasukan = 0;
@@ -36,7 +36,7 @@ class Dashboard extends CI_Controller {
         $sisa_saldo = $total_pemasukan - $total_pengeluaran;
 
         // ==========================================
-        // 2. HITUNG PROGRESS & AGENDA TERTUNDA
+        // 2. HITUNG PROGRESS & AGENDA TERTUNDA (SINKRON AGAR AKURAT)
         // ==========================================
         $data_aktivitas = $this->M_aktivitas->get_aktivitas_by_user($id_user);
         $total_aktivitas = count($data_aktivitas);
@@ -44,9 +44,10 @@ class Dashboard extends CI_Controller {
         $agenda_tertunda = 0;
 
         foreach ($data_aktivitas as $akt) {
-            if (strtolower($akt->status_aktivitas) == 'selesai' || strtolower($akt->status_aktivitas) == 'done') {
+            $status = strtolower($akt->status_aktivitas);
+            if ($status == 'selesai' || $status == 'done') {
                 $aktivitas_selesai++;
-            } else if (strtolower($akt->status_aktivitas) == 'incoming' || strtolower($akt->status_aktivitas) == 'pending') {
+            } else if ($status == 'incoming' || $status == 'in progress' || $status == 'pending') {
                 $agenda_tertunda++;
             }
         }
@@ -54,19 +55,44 @@ class Dashboard extends CI_Controller {
         $persentase_progress = ($total_aktivitas > 0) ? round(($aktivitas_selesai / $total_aktivitas) * 100) : 0;
 
         // ==========================================
-        // 3. KIRIM DATA KE VIEW
+// 3. LOGIC BARU: FILTER AKTIVITAS TERDEKAT & BELUM SELESAI
+// ==========================================
+$hari_ini = date('Y-m-d'); 
+$tiga_hari_kedepan = date('Y-m-d', strtotime('+3 days'));
+$aktivitas_terbaru_filtered = [];
+
+foreach ($data_aktivitas as $act) {
+    $status = strtolower($act->status_aktivitas);
+    $tgl_act = date('Y-m-d', strtotime($act->tanggal_aktivitas));
+
+    // Filter: Belum selesai (bukan Done/Selesai) DAN berada di rentang hari ini s.d 3 hari ke depan
+    if ($status !== 'done' && $status !== 'selesai') {
+        if ($tgl_act >= $hari_ini && $tgl_act <= $tiga_hari_kedepan) {
+            $aktivitas_terbaru_filtered[] = $act;
+        }
+    }
+}
+
+// Urutkan array berdasarkan tanggal terdekat (Ascending)
+usort($aktivitas_terbaru_filtered, function($a, $b) {
+    return strtotime($a->tanggal_aktivitas) - strtotime($b->tanggal_aktivitas);
+});
+
+        // ==========================================
+        // 4. KIRIM DATA KE VIEW (Mengarah ke dashboard.php bawaanmu)
         // ==========================================
         $data['total_pemasukan']     = $total_pemasukan;
         $data['total_pengeluaran']   = $total_pengeluaran;
         $data['sisa_saldo']          = $sisa_saldo;
         $data['persentase_progress'] = $persentase_progress;
         $data['agenda_tertunda']     = $agenda_tertunda;
-        $data['aktivitas_terbaru']   = $data_aktivitas;
+        
+        // Sekarang variabel ini hanya berisi list tugas aktif 3 hari kedepan
+        $data['aktivitas_terbaru']   = $aktivitas_terbaru_filtered; 
 
         $this->load->view('dashboard/dashboard', $data);
     }
 
-    // FIX NAMA FILE VIEW: Mengarah ke profile_settings.php
     public function profile() {
         $this->load->view('dashboard/profile_settings'); 
     }
@@ -79,11 +105,11 @@ class Dashboard extends CI_Controller {
             'email' => $this->input->post('email')
         ];
 
-        if($this->input->post('password')) {
-            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        $password_input = $this->input->post('password');
+        if (!empty($password_input)) { 
+            $data['password'] = md5($password_input);
         }
 
-        // PROSES UPLOAD FOTO PROFIL
         if (!empty($_FILES['foto_profil']['name'])) {
             $config['upload_path']   = './assets/uploads/profile/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
@@ -109,8 +135,6 @@ class Dashboard extends CI_Controller {
         $this->session->set_userdata('email', $data['email']);
 
         $this->session->set_flashdata('pesan', 'Profil Berhasil Diupdate');
-
-        // REDIRECT FIX: diarahkan kembali ke method profile secara aman lewat site_url
-        redirect(site_url('dashboard/profile'));
+        redirect('dashboard/profile');
     }
 }

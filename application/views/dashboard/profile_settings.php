@@ -136,7 +136,6 @@
             text-decoration: none;
             display: inline-block;
         }
-        /* Style Tambahan untuk Mode Switch Box */
         .theme-switch-box {
             background-color: var(--form-bg);
             border: 1px solid var(--border-color);
@@ -149,9 +148,9 @@
         <aside class="sidebar">
             <div class="brand">SIMAK</div>
             <nav class="nav flex-column">
-                <a class="nav-link" href="<?= site_url('dashboard'); ?>"><i class="fa-solid fa-chart-pie me-2"></i> Dashboard</a>
+                <a class="nav-link" href="<?= base_url('index.php/dashboard'); ?>"><i class="fa-solid fa-chart-pie me-2"></i> Dashboard</a>
                 <a class="nav-link active" href="#"><i class="fa-solid fa-user-gear me-2"></i> Kelola Profil</a>
-                <a class="nav-link text-danger mt-4" href="<?= site_url('auth/logout'); ?>"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a>
+                <a class="nav-link text-danger mt-4" href="<?= base_url('index.php/auth/logout'); ?>"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a>
             </nav>
         </aside>
 
@@ -187,7 +186,7 @@
                     </div>
                 </div>
 
-                <form action="<?= site_url('dashboard/update'); ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('dashboard/update'); ?>" method="POST" enctype="multipart/form-data">
                     
                     <div class="d-flex align-items-center gap-4 mb-4 p-3 rounded-3" style="background-color: var(--form-bg); border: 1px solid var(--border-color);">
                         <img src="<?= !empty($this->session->userdata('foto_profil')) ? base_url('assets/uploads/profile/'.$this->session->userdata('foto_profil')) : 'https://i.pinimg.com/736x/c0/27/74/c027749d9af29af3d687847bc1fbb1fa.jpg'; ?>" class="profile-avatar-current" alt="Foto Profil">
@@ -217,12 +216,11 @@
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-gradient-primary"><i class="fa-solid fa-floppy-disk me-2"></i> Simpan Perubahan</button>
-                            <a href="<?= site_url('dashboard'); ?>" class="btn btn-light-custom"><i class="fa-solid fa-arrow-left me-2"></i> Kembali</a>
+                            <a href="<?= base_url('index.php/dashboard'); ?>" class="btn btn-light-custom"><i class="fa-solid fa-arrow-left me-2"></i> Kembali</a>
                         </div>
-                        <a href="<?= site_url('auth/logout'); ?>" class="btn btn-danger px-4 py-2 fw-bold" style="border-radius: 12px;"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar Aplikasi</a>
+                        <a href="<?= base_url('index.php/auth/logout'); ?>" class="btn btn-danger px-4 py-2 fw-bold" style="border-radius: 12px;"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar Aplikasi</a>
                     </div>
-                </form>
-            </div>
+                </form> </div>
         </main>
     </div>
 
@@ -230,7 +228,6 @@
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeStatusText = document.querySelector('.text-theme-status');
         
-        // 1. Cek memori browser, apakah user sebelumnya sudah pilih dark mode?
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -242,15 +239,14 @@
             themeStatusText.innerText = "Mode Terang Aktif";
         }
 
-        // 2. Aksi ketika tombol switch di klik/geser
         themeToggleBtn.addEventListener('change', function() {
             if (this.checked) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark'); // Simpan pilihan ke memori
+                localStorage.setItem('theme', 'dark');
                 themeStatusText.innerText = "Mode Gelap Aktif";
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light'); // Simpan pilihan ke memori
+                localStorage.setItem('theme', 'light');
                 themeStatusText.innerText = "Mode Terang Aktif";
             }
         });

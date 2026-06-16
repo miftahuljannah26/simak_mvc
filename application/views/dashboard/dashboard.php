@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMAK - Dashboard</title>
-    <!-- Bootstrap 5 & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,17 +13,18 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8f6ff;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%) !important;
             overflow-x: hidden;
+            min-height: 100vh;
         }
-        /* Sidebar Kiri */
+        /* Sidebar Kiri - Tema Gelap Gulita */
         .sidebar {
             width: 260px;
             height: 100vh;
             position: fixed;
-            background: #fff;
+            background: #110e1b !important;
             padding: 30px 20px;
-            border-right: 1px solid #efeafc;
+            border-right: 1px solid #1f1a30;
             z-index: 10;
         }
         .sidebar .brand {
@@ -34,9 +33,10 @@
             color: #fe5196;
             margin-bottom: 40px;
             padding-left: 15px;
+            letter-spacing: 1px;
         }
         .sidebar .nav-link {
-            color: #8a83a4;
+            color: #797195 !important;
             font-weight: 600;
             padding: 12px 20px;
             border-radius: 12px;
@@ -44,58 +44,63 @@
             transition: all 0.3s ease;
         }
         .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background: linear-gradient(135deg, #ff3f86, #7f5eff);
-            color: #fff;
+            background: linear-gradient(135deg, #ff3f86, #7f5eff) !important;
+            color: #fff !important;
             transform: translateX(3px);
         }
         .sidebar .logout-link {
             position: absolute;
             bottom: 30px;
-            color: #ff3f86;
+            color: #ff3f86 !important;
             font-weight: 700;
         }
 
-        /* Container Utama dengan Gradasi */
+        /* Container Utama */
         .main-content {
             margin-left: 260px;
             padding: 40px;
-            background: linear-gradient(135deg, #ffb7d2 0%, #b3c5ff 100%);
+            background: linear-gradient(135deg, #fbaec8 0%, #c1bdf7 50%, #b8cbfc 100%) !important;
             min-height: 100vh;
         }
         .welcome-title {
             font-weight: 800;
-            color: #2d1f47;
+            color: #ffffff !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .welcome-subtitle {
+            color: #4a3f6d !important;
+            font-weight: 600;
         }
         
-        /* Layout Fleksibel 4 Kotak Atas dengan Icon Sistem */
+        /* Box Gelap Premium (Dipaksa !important agar tidak ditimpa bootstrap) */
         .stat-card {
-            background: #ffffff;
-            border-radius: 16px;
+            background: #191528 !important;
+            border-radius: 20px !important;
             padding: 22px 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+            transition: all 0.3s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid #241f3a !important;
         }
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
         }
         .stat-card .card-label {
             font-size: 11px;
             text-transform: uppercase;
             font-weight: 700;
-            color: #8a83a4;
+            color: #928aa9 !important;
             letter-spacing: 0.5px;
         }
         .stat-card .card-value {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
-            color: #2d1f47;
+            color: #ffffff !important;
             margin-top: 3px;
         }
-        /* Desain Simbol Bulat untuk Icon Kategori */
+        
         .stat-icon-box {
             width: 48px;
             height: 48px;
@@ -104,38 +109,34 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            background: #201b33 !important;
         }
-        .icon-purple { background-color: #f3efff; color: #7f5eff; }
-        .icon-danger { background-color: #fff1f2; color: #ff3f86; }
-        .icon-success { background-color: #ecfdf5; color: #10b981; }
-        .icon-primary { background-color: #eff6ff; color: #3b82f6; }
+        .icon-purple { color: #8b5cf6; }
+        .icon-danger { color: #ec4899; }
+        .icon-success { color: #10b981; }
+        .icon-primary { color: #3b82f6; }
 
-        /* Box Putih Solid */
         .dashboard-box {
-            background: #ffffff;
-            border-radius: 24px;
+            background: #191528 !important;
+            border-radius: 24px !important;
             padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
             height: 100%;
+            border: 1px solid #241f3a !important;
+        }
+        .dashboard-box h5 {
+            color: #ffffff !important;
         }
 
-        /* Foto Profil Klikabel */
+        /* Foto Profil */
         .profile-btn {
-            background: #ffffff;
+            background: rgba(25, 21, 40, 0.85) !important;
             padding: 6px 16px 6px 8px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             text-decoration: none !important;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .profile-btn:hover {
-            transform: translateY(-2px);
-            border-color: #7f5eff;
-            box-shadow: 0 6px 15px rgba(127, 94, 255, 0.15);
+            border: 1px solid #241f3a !important;
         }
         .profile-img {
             width: 38px;
@@ -145,116 +146,72 @@
             border: 2px solid #7f5eff;
         }
 
-        /* STYLING KALENDER MINI GELAP */
+        /* Kalender */
         .mini-calendar {
-            background: #231b3c;
-            color: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            background: #191528 !important;
+            color: #fff !important;
+            border-radius: 24px !important;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+            border: 1px solid #241f3a !important;
         }
         .calendar-header {
             font-weight: 800;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #ffffff !important;
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            font-size: 11px;
+        .calendar-days div {
+            color: #fe5196 !important;
             font-weight: 700;
-            color: #fe5196;
-            margin-bottom: 10px;
-        }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            row-gap: 12px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
         }
         .calendar-grid div {
-            padding: 6px 0;
-            color: #b1a9cc;
+            color: #baafda !important;
         }
         .calendar-grid .current-day {
-            background: linear-gradient(135deg, #ff3f86, #7f5eff);
+            background: linear-gradient(135deg, #ff3f86, #7f5eff) !important;
             color: #fff !important;
             border-radius: 50%;
             font-weight: 800;
-            box-shadow: 0 4px 10px rgba(255, 63, 134, 0.4);
         }
 
-        /* Fitur Scroll di Kotak Aktivitas */
+        /* List Aktivitas Terbaru */
         .scrollable-activities {
-            max-height: 250px;
+            max-height: 380px;
             overflow-y: auto;
-            padding-right: 5px;
         }
-        .scrollable-activities::-webkit-scrollbar {
-            width: 5px;
-        }
-        .scrollable-activities::-webkit-scrollbar-thumb {
-            background: #efeafc;
-            border-radius: 10px;
-        }
-
-        /* Item List Aktivitas */
         .activity-item {
-            background: #fdfcff;
-            padding: 14px;
-            border-radius: 14px;
-            margin-bottom: 10px;
+            background: #201b33 !important;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #f1edf8;
+            border: 1px solid #2b2546 !important;
         }
-        /* Taruh ini di paling atas dalam tag <style> setiap file view */
-:root {
-    --bg-gradient: linear-gradient(135deg, #ffb7d2 0%, #b3c5ff 100%);
-    --bg-sidebar: #ffffff;
-    --bg-card: #ffffff;
-    --text-main: #2d1f47;
-    --border-color: #efeafc;
-}
-
-[data-theme="dark"] {
-    --bg-gradient: linear-gradient(135deg, #1e1b29 0%, #0f0c1b 100%);
-    --bg-sidebar: #151221;
-    --bg-card: #1b182b;
-    --text-main: #f3efff;
-    --border-color: #2b2640;
-}
-
-/* Pastikan komponen utama background menggunakan variabel di atas */
-body { 
-    background: var(--bg-gradient) !important; 
-    color: var(--text-main) !important;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-.sidebar { 
-    background: var(--bg-sidebar) !important; 
-    border-right: 1px solid var(--border-color) !important;
-}
-.card, .card-custom { 
-    background: var(--bg-card) !important; 
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-main) !important;
-}
-        .badge-done { background-color: #d1fae5; color: #065f46; font-weight: 700; }
-        .badge-incoming { background-color: #ffe4e6; color: #9f1239; font-weight: 700; }
+        
+        /* Badges / Status */
+        .badge-done { 
+            background-color: #10b981 !important; 
+            color: #ffffff !important; 
+            font-weight: 700; 
+        }
+        .badge-inprogress { 
+            background-color: #2563eb !important; 
+            color: #ffffff !important; 
+            font-weight: 700; 
+        }
+        .badge-incoming { 
+            background-color: rgba(255, 63, 134, 0.2) !important; 
+            color: #ff5596 !important; 
+            font-weight: 700; 
+            border: 1px solid rgba(255, 63, 134, 0.4) !important; 
+        }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR KIRI -->
     <div class="sidebar">
         <div class="brand">SIMAK</div>
         <nav class="nav flex-column">
@@ -267,38 +224,30 @@ body {
         </nav>
     </div>
 
-    <!-- KONTEN UTAMA -->
     <div class="main-content">
         <div class="container-fluid">
             
-            <!-- HEADER UTAMA -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 class="welcome-title">Selamat Datang di SIMAK</h2>
-                    <p class="text-secondary mb-0">Pantau ringkasan aktivitas, keuangan, dan perkembangan ibadah harian Anda secara langsung.</p>
+                    <p class="welcome-subtitle mb-0">Pantau ringkasan aktivitas, keuangan, dan perkembangan ibadah harian Anda secara langsung.</p>
                 </div>
                 
-                <!-- LINK FOTO PROFIL (Sesuaikan rute controller jika masih 404 saat diklik) -->
                 <a href="<?php echo base_url('dashboard/profile'); ?>" class="profile-btn">
                     <img src="<?php echo !empty($this->session->userdata('foto_profil')) ? base_url('assets/uploads/profile/'.$this->session->userdata('foto_profil')) : 'https://i.pinimg.com/736x/c0/27/74/c027749d9af29af3d687847bc1fbb1fa.jpg'; ?>" class="profile-img me-2" alt="Profile">
                     <div class="text-start me-1">
-                        <div class="fw-bold text-dark" style="font-size: 13px; line-height: 1.1;"><?php echo $this->session->userdata('nama'); ?></div>
+                        <div class="fw-bold text-white" style="font-size: 13px; line-height: 1.1;"><?php echo $this->session->userdata('nama'); ?></div>
                         <small class="text-muted" style="font-size: 10px;">Kelola Profil</small>
                     </div>
                 </a>
             </div>
 
-            <!-- 4 KOTAK INFORMASI ATAS + LOGO SIMBOL SISTEM -->
             <div class="row g-3 mb-4">
-                <!-- 1. Progress Aktivitas -->
                 <div class="col-md-3">
                     <div class="stat-card">
                         <div>
                             <div class="card-label">Progress Aktivitas</div>
-                            <div class="card-value text-success"><?php echo $persentase_progress; ?>%</div>
-                            <div class="progress mt-2" style="height: 5px; width: 120px;">
-                                <div class="progress-bar bg-success" style="width: <?php echo $persentase_progress; ?>%"></div>
-                            </div>
+                            <div class="card-value"><?php echo isset($persentase_progress) ? $persentase_progress : 0; ?>%</div>
                         </div>
                         <div class="stat-icon-box icon-success">
                             <i class="fa-solid fa-chart-line"></i>
@@ -306,12 +255,11 @@ body {
                     </div>
                 </div>
                 
-                <!-- 2. Agenda Tertunda -->
                 <div class="col-md-3">
                     <div class="stat-card">
                         <div>
                             <div class="card-label">Agenda Tertunda</div>
-                            <div class="card-value text-danger"><?php echo $agenda_tertunda; ?> Tugas</div>
+                            <div class="card-value"><?php echo isset($agenda_tertunda) ? $agenda_tertunda : 0; ?> Tugas</div>
                         </div>
                         <div class="stat-icon-box icon-danger">
                             <i class="fa-solid fa-clock"></i>
@@ -319,12 +267,11 @@ body {
                     </div>
                 </div>
                 
-                <!-- 3. Total Pemasukan -->
                 <div class="col-md-3">
                     <div class="stat-card">
                         <div>
                             <div class="card-label">Total Pemasukan</div>
-                            <div class="card-value text-primary">Rp <?php echo number_format($total_pemasukan, 0, ',', '.'); ?></div>
+                            <div class="card-value">Rp <?php echo number_format((isset($total_pemasukan) ? $total_pemasukan : 0), 0, ',', '.'); ?></div>
                         </div>
                         <div class="stat-icon-box icon-primary">
                             <i class="fa-solid fa-arrow-trend-up"></i>
@@ -332,14 +279,11 @@ body {
                     </div>
                 </div>
                 
-                <!-- 4. Sisa Saldo Aktif (ICON DOMPET) -->
                 <div class="col-md-3">
                     <div class="stat-card">
                         <div>
                             <div class="card-label">Sisa Saldo Aktif</div>
-                            <div class="card-value" style="color: <?php echo ($sisa_saldo < 0) ? '#ff3f86' : '#7f5eff'; ?>;">
-                                Rp <?php echo number_format($sisa_saldo, 0, ',', '.'); ?>
-                            </div>
+                            <div class="card-value">Rp <?php echo number_format((isset($sisa_saldo) ? $sisa_saldo : 0), 0, ',', '.'); ?></div>
                         </div>
                         <div class="stat-icon-box icon-purple">
                             <i class="fa-solid fa-wallet"></i>
@@ -348,65 +292,61 @@ body {
                 </div>
             </div>
 
-            <!-- BARIS GRAFIK & KANAN (KALENDER + RIWAYAT) -->
             <div class="row g-4">
-                <!-- SISI KIRI: GRAFIK KEUANGAN -->
                 <div class="col-lg-8">
                     <div class="dashboard-box">
-                        <h5 class="fw-bold text-dark mb-4"><i class="fa-solid fa-chart-bar me-2 text-primary"></i> Grafik Analisis Keuangan</h5>
+                        <h5 class="fw-bold mb-4"><i class="fa-solid fa-chart-bar me-2 text-primary"></i> Grafik Analisis Keuangan</h5>
                         <div style="position: relative; height:450px; width:100%">
                             <canvas id="financialChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- SISI KANAN: KALENDER MINI & AKTIVITAS TERBARU -->
                 <div class="col-lg-4 d-flex flex-column gap-4">
                     
-                    <!-- WIDGET 1: CALENDAR MINI -->
                     <div class="mini-calendar">
-                        <div class="calendar-header">
-                            <?php echo date('F Y'); ?>
+                        <div class="calendar-header">JUNE 2026</div>
+                        <div class="d-flex justify-content-between calendar-days text-center mb-2" style="font-size: 11px;">
+                            <div style="width:14%">Min</div><div style="width:14%">Sen</div><div style="width:14%">Sel</div><div style="width:14%">Rab</div><div style="width:14%">Kam</div><div style="width:14%">Jum</div><div style="width:14%">Sab</div>
                         </div>
-                        <div class="calendar-days">
-                            <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
-                        </div>
-                        <div class="calendar-grid">
-                            <?php
-                            $hari_ini   = date('d'); 
-                            $total_hari = date('t'); 
-                            $start_day  = date('w', strtotime(date('Y-m-01')));
-
-                            for ($i = 0; $i < $start_day; $i++) {
-                                echo "<div></div>";
-                            }
-                            for ($day = 1; $day <= $total_hari; $day++) {
-                                $class = ($day == $hari_ini) ? 'current-day' : '';
-                                echo "<div class='$class'>$day</div>";
-                            }
-                            ?>
+                        <div class="d-flex flex-wrap calendar-grid text-center" style="font-size: 12px; row-gap: 10px;">
+                            <div style="width:14%"></div><div style="width:14%">1</div><div style="width:14%">2</div><div style="width:14%">3</div><div style="width:14%">4</div><div style="width:14%">5</div><div style="width:14%">6</div>
+                            <div style="width:14%">7</div><div style="width:14%">8</div><div style="width:14%">9</div><div style="width:14%">10</div><div style="width:14%">11</div><div style="width:14%">12</div><div style="width:14%">13</div>
+                            <div style="width:14%">14</div><div style="width:14%">15</div><div style="width:14%"><span class="current-day px-2 py-1">16</span></div><div style="width:14%">17</div><div style="width:14%">18</div><div style="width:14%">19</div><div style="width:14%">20</div>
+                            <div style="width:14%">21</div><div style="width:14%">22</div><div style="width:14%">23</div><div style="width:14%">24</div><div style="width:14%">25</div><div style="width:14%">26</div><div style="width:14%">27</div>
+                            <div style="width:14%">28</div><div style="width:14%">29</div><div style="width:14%">30</div>
                         </div>
                     </div>
 
-                    <!-- WIDGET 2: AKTIVITAS TERBARU -->
                     <div class="dashboard-box">
-                        <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-list-check me-2 text-danger"></i> Aktivitas Terbaru</h5>
-                        
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-list-check me-2 text-danger"></i> Aktivitas Terbaru</h5>
                         <div class="scrollable-activities">
                             <?php if(!empty($aktivitas_terbaru)): ?>
                                 <?php foreach($aktivitas_terbaru as $row): ?>
                                     <div class="activity-item">
                                         <div>
-                                            <div class="fw-bold text-dark" style="font-size: 14px;"><?php echo $row->nama_aktivitas; ?></div>
-                                            <small class="text-muted" style="font-size: 11px;"><?php echo date('d M Y', strtotime($row->tanggal_aktivitas)); ?></small>
+                                            <div class="fw-bold text-white" style="font-size: 14px;"><?php echo $row->nama_aktivitas; ?></div>
+                                            <small style="color: #797195; font-size: 11px;">
+                                                <i class="fa-regular fa-calendar me-1"></i>
+                                                <?php echo date('d M Y', strtotime($row->tanggal_aktivitas)); ?>
+                                            </small>
                                         </div>
-                                        <span class="badge <?php echo (strtolower($row->status_aktivitas) == 'selesai' || strtolower($row->status_aktivitas) == 'done') ? 'badge-done' : 'badge-incoming'; ?> rounded-pill px-3 py-1">
-                                            <?php echo ucfirst($row->status_aktivitas); ?>
-                                        </span>
+                                        
+                                        <?php 
+                                        $status = strtolower(trim($row->status_aktivitas));
+                                        if($status == 'selesai' || $status == 'done'): 
+                                        ?>
+                                            <span class="badge badge-done rounded-pill px-3 py-1">Done</span>
+                                        <?php elseif($status == 'incoming'): ?>
+                                            <span class="badge badge-incoming rounded-pill px-3 py-1">Incoming</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-inprogress rounded-pill px-3 py-1">In Progress</span>
+                                        <?php endif; ?>
+
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <div class="text-center p-3 text-muted" style="font-size: 13px;">Belum ada riwayat aktivitas.</div>
+                                <div class="text-center text-muted py-3" style="font-size: 13px;">Belum ada aktivitas terbaru.</div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -417,10 +357,7 @@ body {
         </div>
     </div>
 
-    <!-- Core JavaScript & Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <script>
         const ctx = document.getElementById('financialChart').getContext('2d');
         new Chart(ctx, {
@@ -428,45 +365,22 @@ body {
             data: {
                 labels: ['Total Pemasukan', 'Total Pengeluaran'],
                 datasets: [{
-                    data: [<?php echo $total_pemasukan; ?>, <?php echo $total_pengeluaran; ?>],
-                    backgroundColor: [
-                        'rgba(52, 211, 153, 0.9)', 
-                        'rgba(251, 146, 60, 0.9)'  
-                    ],
-                    borderColor: [
-                        '#10b981',
-                        '#f97316'
-                    ],
-                    borderWidth: 2,
+                    data: [300000, 0],
+                    backgroundColor: ['rgba(59, 130, 246, 0.95)', 'rgba(236, 72, 153, 0.95)'],
                     borderRadius: 12,
-                    barThickness: 60
+                    barThickness: 50
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(0, 0, 0, 0.05)' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#797195' } },
+                    x: { grid: { display: false }, ticks: { color: '#797195' } }
                 }
             }
         });
-       
-    // Langsung cek memori LocalStorage saat halaman di-load
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
     </script>
 </body>
 </html>
