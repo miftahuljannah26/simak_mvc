@@ -107,9 +107,20 @@ class Keuangan extends CI_Controller {
     redirect('keuangan');
 }
 
-    public function hapus($id) {
-        $this->db->delete('keuangan', ['id_keuangan' => $id]);
-        $this->session->set_flashdata('pesan', 'Transaksi berhasil dihapus');
-        redirect('keuangan');
+    public function hapus($id)
+{
+    // Cek apakah user sudah login
+    if (!$this->session->userdata('id_user')) {
+        redirect('auth');
     }
+
+    // Panggil model untuk hapus data berdasarkan id_transaksi
+    $this->M_keuangan->hapus_keuangan($id);
+
+    // Kasih notifikasi (opsional)
+    $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil dihapus!</div>');
+
+    // Balikin ke halaman keuangan
+    redirect('keuangan');
+}
 }

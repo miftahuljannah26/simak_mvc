@@ -18,13 +18,13 @@
             --border-color: #e2e8f0;
         }
         [data-theme="dark"]{
-    --bg-body: linear-gradient(135deg, #140d26 0%, #0f172a 100%);
-    --bg-sidebar: #151221;
-    --bg-box: #1b182b;
-    --text-main: #f3efff;
-    --text-muted: #a29bbd;
-    --border-color: #2b2640;
-}
+            --bg-body: linear-gradient(135deg, #140d26 0%, #0f172a 100%);
+            --bg-sidebar: #151221;
+            --bg-box: #1b182b;
+            --text-main: #f3efff;
+            --text-muted: #a29bbd;
+            --border-color: #2b2640;
+        }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -127,34 +127,34 @@
             color: #991b1b;
         }
         [data-theme="dark"] .table{
-    color:#f3efff;
-}
+            color:#f3efff;
+        }
 
-[data-theme="dark"] .text-muted{
-    color:#a29bbd !important;
-}
+        [data-theme="dark"] .text-muted{
+            color:#a29bbd !important;
+        }
 
-[data-theme="dark"] .modal-content{
-    background:#1b182b;
-    color:#f3efff;
-    border:1px solid #2b2640;
-}
+        [data-theme="dark"] .modal-content{
+            background:#1b182b;
+            color:#f3efff;
+            border:1px solid #2b2640;
+        }
 
-[data-theme="dark"] .form-control,
-[data-theme="dark"] .form-select{
-    background:#221e38;
-    color:#f3efff;
-    border-color:#2b2640;
-}
+        [data-theme="dark"] .form-control,
+        [data-theme="dark"] .form-select{
+            background:#221e38;
+            color:#f3efff;
+            border-color:#2b2640;
+        }
 
-[data-theme="dark"] .form-control:focus,
-[data-theme="dark"] .form-select:focus{
-    background:#221e38;
-    color:#f3efff;
-}
+        [data-theme="dark"] .form-control:focus,
+        [data-theme="dark"] .form-select:focus{
+            background:#221e38;
+            color:#f3efff;
+        }
     </style>
 </head>
-<body data-theme="<?= $this->session->userdata('theme') == 'dark' ? 'dark' : 'light'; ?>"></body>
+<body data-theme="<?= $this->session->userdata('theme') == 'dark' ? 'dark' : 'light'; ?>">
 
     <div class="sidebar">
         <div class="brand">SIMAK</div>
@@ -431,8 +431,6 @@
         } else {
             document.getElementById('categoryPieChart').parentElement.innerHTML = "<p class='text-muted py-4'>Belum ada data pengeluaran untuk dianalisis.</p>";
         }
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    document.body.className = savedTheme + '-theme';
     </script>
 </body>
 </html>

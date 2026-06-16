@@ -38,4 +38,11 @@ class M_keuangan extends CI_Model {
         $this->db->group_by('kategori_utama');
         return $this->db->get('keuangan')->result_array();
     }
+
+    // === INI FUNGSI BARU YANG TADI HILANG/BELUM ADA ===
+    public function hapus_keuangan($id) {
+        // Menggunakan id_transaksi sesuai struktur tabel keuangan kamu
+        $this->db->where('id_transaksi', $id);
+        return $this->db->delete('keuangan');
+    }
 }
